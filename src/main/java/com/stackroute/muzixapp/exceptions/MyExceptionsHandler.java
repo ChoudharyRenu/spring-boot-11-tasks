@@ -9,6 +9,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class MyExceptionsHandler {
     @ExceptionHandler(TrackNotFound.class)
     public ResponseEntity<Object> myMessage(TrackNotFound tr){
-        return new ResponseEntity<>(tr.getMessage(), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(tr.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(TrackAlreadyExists.class)
+    public ResponseEntity<Object> message(TrackAlreadyExists tr){
+        return new ResponseEntity<>(tr.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> myMessage(Exception e)
+    {
+        return new ResponseEntity<>("Internal Server Error", HttpStatus.CONFLICT);
+    }
+
 }
